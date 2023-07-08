@@ -13,9 +13,9 @@ namespace ChestSystem.Currancy
             Amount += value;
         }
 
-        public int get()
+        public string get()
         {
-            return Amount;
+            return Amount.ToString();
         }
     }
 }
