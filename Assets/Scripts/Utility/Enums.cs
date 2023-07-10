@@ -13,5 +13,13 @@ namespace ChestSystem
             coin,
             gem
         }
+
+        public enum PoolTag
+        {
+            common,
+            rare,
+            epic,
+            legendary
+        }
     }
 }
