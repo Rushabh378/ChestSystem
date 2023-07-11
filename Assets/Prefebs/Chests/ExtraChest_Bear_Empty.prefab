@@ -116,6 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 644768671390684696}
   - component: {fileID: 1523520102}
+  - component: {fileID: 900344606223781208}
   m_Layer: 0
   m_Name: ExtraChest_Bear_Empty
   m_TagString: Untagged
@@ -162,6 +163,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &900344606223781208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2638206667714596301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95039837f7acbd042b3b91e2c9825335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2965385742541992309
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +247,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0af46b61ee668724ca0220bfdee75290, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

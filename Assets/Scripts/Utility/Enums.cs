@@ -16,6 +16,7 @@ namespace ChestSystem
 
         public enum PoolTag
         {
+            none,
             common,
             rare,
             epic,

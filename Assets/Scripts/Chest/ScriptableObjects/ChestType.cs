@@ -5,7 +5,7 @@ namespace ChestSystem.Chest
     [CreateAssetMenu(fileName = "ChestType", menuName = "ChestType")]
     public class ChestType : ScriptableObject
     {
-        public GameObject chestPrefeb;
+        public ChestView chestPrefeb;
         public int coinsRange = 100;
         public int to = 200;
         public int gemsRange = 10;

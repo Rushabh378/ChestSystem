@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49b1d4bf435cb194f9dedd937a5fa5e1, type: 3}
+  m_Name: Rare Chest
+  m_EditorClassIdentifier: 
+  chestPrefeb: {fileID: 2999515947832441988, guid: 9e15e46347eaaca4ab847a4de76a30b1, type: 3}
+  coinsRange: 300
+  to: 500
+  gemsRange: 20
+  _to: 40
