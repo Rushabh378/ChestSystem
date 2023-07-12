@@ -3,7 +3,7 @@ using TMPro;
 
 namespace ChestSystem.Chest
 {
-    public class ChestModel : MonoBehaviour
+    public class ChestModel
     {
         private ChestController controller;
         public ChestType chestType;
@@ -12,10 +12,10 @@ namespace ChestSystem.Chest
 
         public Animator standAnimtor;
         
-        public ChestModel(ChestType chestType, GameObject chestSlot, GameObject chestStand)
+        public ChestModel(ChestType chestType, Availablity chestSlot, GameObject chestStand)
         {
             this.chestType = chestType;
-            this.chestSlot = chestSlot;
+            this.chestSlot = chestSlot.gameObject;
 
             standAnimtor = chestStand.GetComponent<Animator>();
             standText = chestStand.GetComponentInChildren<TextMeshProUGUI>();

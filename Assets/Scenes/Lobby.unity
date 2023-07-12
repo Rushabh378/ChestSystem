@@ -3319,6 +3319,8 @@ MonoBehaviour:
   chestTypes:
   - {fileID: 11400000, guid: d7b562a3042405e40936784189a93fad, type: 2}
   - {fileID: 11400000, guid: f8055dce983c4d741917f83b840c5748, type: 2}
+  - {fileID: 11400000, guid: 473971bdb086e9f4d9241d4a7f256597, type: 2}
+  - {fileID: 11400000, guid: ab85255f88115284db355e75c07a8f1f, type: 2}
   chestSlot:
   - {fileID: 849309133}
   - {fileID: 1597645565}

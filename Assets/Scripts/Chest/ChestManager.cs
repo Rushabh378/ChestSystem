@@ -24,10 +24,10 @@ namespace ChestSystem.Chest
             if (Input.GetKeyDown(KeyCode.I))
             {
                 int slotIndex = GetAvailableSlot();
-                if (chestSlot[slotIndex].gameObject)
+                if (slotIndex != -1 && chestSlot[slotIndex].gameObject)
                 {
                     int index = random.Next(chestTypes.Count);
-                    model[current] = new ChestModel(chestTypes[index],chestSlot[slotIndex].gameObject,UIManager.Instance.chestStand[slotIndex]);
+                    model[current] = new ChestModel(chestTypes[index],chestSlot[slotIndex],UIManager.Instance.chestStand[slotIndex]);
                     controller[current] = new ChestController(model[current]);
                     current++;
                 }

@@ -2,13 +2,13 @@
 
 namespace ChestSystem.Chest
 {
-    public class ChestController : MonoBehaviour
+    public class ChestController
     {
         private ChestModel model;
         private ChestView view;
         public ChestController(ChestModel model)
         {
-            view = Instantiate<ChestView>(model.chestType.chestPrefeb, model.ChestPosition, Quaternion.identity);
+            view = GameObject.Instantiate<ChestView>(model.chestType.chestPrefeb, model.ChestPosition, Quaternion.identity);
 
             this.model = model;
 

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b1d4bf435cb194f9dedd937a5fa5e1, type: 3}
   m_Name: Epic Chest
   m_EditorClassIdentifier: 
-  chestPrefeb: {fileID: 0}
-  coinsRange: 100
-  to: 200
-  gemsRange: 10
-  _to: 20
+  chestPrefeb: {fileID: 5991607954420206433, guid: 8a84582913f69a64ba5de5ac1eeb6784, type: 3}
+  coinsRange: 600
+  to: 800
+  gemsRange: 45
+  _to: 60
