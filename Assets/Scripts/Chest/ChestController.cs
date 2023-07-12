@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace ChestSystem.Chest
 {
@@ -14,15 +15,30 @@ namespace ChestSystem.Chest
 
             this.view.SetController(this);
             this.model.SetController(this);
+
+            model.standButton.clicked += ActivateTimer;
         }
+
+        internal void SetTimer()
+        {
+            model.Timer -= Time.deltaTime;
+            model.StandText = model.Timer.ToString();
+
+            if(model.Timer <= 0)
+            {
+                view.GetComponent<Animator>().SetBool("Open", true);
+            }
+        }
+
+        private void ActivateTimer() => view.setTimer = true;
 
         internal void ActivateStand()
         {
-            model.standAnimtor.SetBool("Activate", true);
+            model.StandAnimtor.SetBool("Activate", true);
         }
         internal void DeactivatStand()
         {
-            model.standAnimtor.SetBool("Activate", false);
+            model.StandAnimtor.SetBool("Activate", false);
         }
     }
 }

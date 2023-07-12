@@ -10,5 +10,6 @@ namespace ChestSystem.Chest
         public int to = 200;
         public int gemsRange = 10;
         public int _to = 20;
+        public float timer = 15f;
     }
 }
