@@ -308,7 +308,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 245813138}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 40d5f5cdc36a2e74b92641b7fefd0b39, type: 2}
+        m_TargetAssemblyTypeName: ChestSystem.VoidEventChannel, Assembly-CSharp
+        m_MethodName: RaiseEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &245813138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,7 +536,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 314676922}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 374328e58de7ef94cacc6f1b18b524a3, type: 2}
+        m_TargetAssemblyTypeName: ChestSystem.VoidEventChannel, Assembly-CSharp
+        m_MethodName: RaiseEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &314676922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -870,7 +894,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 446926885}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 7b5ed84a168c1bd40b278caf8b5cf543, type: 2}
+        m_TargetAssemblyTypeName: ChestSystem.VoidEventChannel, Assembly-CSharp
+        m_MethodName: RaiseEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &446926885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1836,7 +1872,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 916409117}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 04567d6ab011fec4786a7c5d56551a6d, type: 2}
+        m_TargetAssemblyTypeName: ChestSystem.VoidEventChannel, Assembly-CSharp
+        m_MethodName: RaiseEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &916409117
 MonoBehaviour:
   m_ObjectHideFlags: 0

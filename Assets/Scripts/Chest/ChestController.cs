@@ -15,22 +15,19 @@ namespace ChestSystem.Chest
 
             this.view.SetController(this);
             this.model.SetController(this);
-
-            model.standButton.clicked += ActivateTimer;
         }
 
         internal void SetTimer()
         {
             model.Timer -= Time.deltaTime;
             model.StandText = model.Timer.ToString();
-
-            if(model.Timer <= 0)
+            Debug.Log("from set timer");
+            if (model.Timer <= 0)
             {
+                view.timerOn = false;
                 view.GetComponent<Animator>().SetBool("Open", true);
             }
         }
-
-        private void ActivateTimer() => view.setTimer = true;
 
         internal void ActivateStand()
         {
@@ -38,7 +35,10 @@ namespace ChestSystem.Chest
         }
         internal void DeactivatStand()
         {
-            model.StandAnimtor.SetBool("Activate", false);
+            if(model.StandAnimtor != null)
+            {
+                model.StandAnimtor.SetBool("Activate", false);
+            }
         }
     }
 }
