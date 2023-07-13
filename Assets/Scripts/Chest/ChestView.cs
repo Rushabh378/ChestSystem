@@ -4,7 +4,6 @@ namespace ChestSystem.Chest
 {
     public class ChestView : MonoBehaviour
     {
-        [SerializeField] private VoidEventChannel clickedOpen;
         private ChestController controller;
         internal bool timerOn;
 
@@ -12,7 +11,6 @@ namespace ChestSystem.Chest
         {
             timerOn = false;
             controller.ActivateStand();
-            clickedOpen.unityEvent.AddListener(ActivateTimer);
 
         }
         public void Update()
@@ -21,11 +19,6 @@ namespace ChestSystem.Chest
             {
                 controller.SetTimer();
             }
-        }
-        public void ActivateTimer()
-        {
-            timerOn = true;
-            Debug.Log("timer is set to " + timerOn + " for " + gameObject.name);
         }
         public void SetController(ChestController controller)
         {

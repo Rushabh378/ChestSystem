@@ -15,6 +15,8 @@ namespace ChestSystem.Chest
 
             this.view.SetController(this);
             this.model.SetController(this);
+
+            model.btnOpen.onClick.AddListener(ActivateTimer);
         }
 
         internal void SetTimer()
@@ -27,6 +29,8 @@ namespace ChestSystem.Chest
                 view.GetComponent<Animator>().SetBool("Open", true);
             }
         }
+
+        private void ActivateTimer() => view.timerOn = true;
 
         internal void ActivateStand()
         {
