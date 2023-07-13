@@ -22,12 +22,22 @@ namespace ChestSystem.Chest
         internal void SetTimer()
         {
             model.Timer -= Time.deltaTime;
-            model.StandText = model.Timer.ToString();
+            UpdateTimer(model.Timer);
             if (model.Timer <= 0)
             {
                 view.timerOn = false;
                 view.GetComponent<Animator>().SetBool("Open", true);
             }
+        }
+
+        private void UpdateTimer(float currentTime)
+        {
+            currentTime += 1;
+
+            float minutes = Mathf.FloorToInt(currentTime / 60);
+            float seconds = Mathf.FloorToInt(currentTime % 60);
+
+            model.StandText = string.Format("{0:00} : {1:00}", minutes, seconds);
         }
 
         private void ActivateTimer() => view.timerOn = true;
