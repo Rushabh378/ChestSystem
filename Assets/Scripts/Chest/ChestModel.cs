@@ -13,7 +13,6 @@ namespace ChestSystem.Chest
 
         public Animator StandAnimtor;
         public float Timer;
-        //public Button standButton;
         
         public ChestModel(ChestType chestType, Availablity chestSlot, GameObject chestStand)
         {
@@ -22,7 +21,6 @@ namespace ChestSystem.Chest
 
             StandAnimtor = chestStand.GetComponent<Animator>();
             standText = chestStand.GetComponentInChildren<TextMeshProUGUI>();
-            //standButton = chestSlot.GetComponent<Button>();
             Timer = chestType.timer;
         }
 

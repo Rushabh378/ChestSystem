@@ -537,7 +537,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 374328e58de7ef94cacc6f1b18b524a3, type: 2}
+      - m_Target: {fileID: 11400000, guid: b5c684ab64c608b4eaf2114d7256cca6, type: 2}
         m_TargetAssemblyTypeName: ChestSystem.VoidEventChannel, Assembly-CSharp
         m_MethodName: RaiseEvent
         m_Mode: 1
@@ -895,7 +895,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 7b5ed84a168c1bd40b278caf8b5cf543, type: 2}
+      - m_Target: {fileID: 11400000, guid: 92e6787235787dd49ab8044cf3aad1c7, type: 2}
         m_TargetAssemblyTypeName: ChestSystem.VoidEventChannel, Assembly-CSharp
         m_MethodName: RaiseEvent
         m_Mode: 1
@@ -1873,7 +1873,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 04567d6ab011fec4786a7c5d56551a6d, type: 2}
+      - m_Target: {fileID: 11400000, guid: ec4bb4d770c9b464b926c196d454ff90, type: 2}
         m_TargetAssemblyTypeName: ChestSystem.VoidEventChannel, Assembly-CSharp
         m_MethodName: RaiseEvent
         m_Mode: 1

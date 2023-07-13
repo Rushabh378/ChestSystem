@@ -4,6 +4,7 @@ namespace ChestSystem.Chest
 {
     public class ChestView : MonoBehaviour
     {
+        [SerializeField] private VoidEventChannel clickedOpen;
         private ChestController controller;
         internal bool timerOn;
 
@@ -11,13 +12,13 @@ namespace ChestSystem.Chest
         {
             timerOn = false;
             controller.ActivateStand();
+            clickedOpen.unityEvent.AddListener(ActivateTimer);
 
         }
         public void Update()
         {
             if (timerOn)
             {
-                Debug.Log("controller -> setTimer got colled");
                 controller.SetTimer();
             }
         }

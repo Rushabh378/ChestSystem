@@ -21,7 +21,6 @@ namespace ChestSystem.Chest
         {
             model.Timer -= Time.deltaTime;
             model.StandText = model.Timer.ToString();
-            Debug.Log("from set timer");
             if (model.Timer <= 0)
             {
                 view.timerOn = false;
