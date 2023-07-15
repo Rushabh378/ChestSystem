@@ -23,7 +23,7 @@ namespace ChestSystem.Chest
             StandAnimtor = chestStand.GetComponent<Animator>();
             standText = chestStand.GetComponentInChildren<TextMeshProUGUI>();
             btnOpen = chestStand.GetComponent<Button>();
-            Timer = chestType.timer;
+            Timer = chestType.timerSeconds;
         }
 
         public Vector3 ChestPosition => chestSlot.transform.position;

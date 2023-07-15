@@ -14,13 +14,12 @@ namespace ChestSystem
             gem
         }
 
-        public enum PoolTag
+        public enum Process
         {
-            none,
-            common,
-            rare,
-            epic,
-            legendary
+            done,
+            failled,
+            inQueue,
+            cancelled
         }
     }
 }

@@ -23,24 +23,44 @@ namespace ChestSystem.Chest
         {
             model.Timer -= Time.deltaTime;
             UpdateTimer(model.Timer);
+
             if (model.Timer <= 0)
             {
-                view.timerOn = false;
-                view.GetComponent<Animator>().SetBool("Open", true);
+                OnChestOpen();
             }
+        }
+
+        private void OnChestOpen()
+        {
+            view.timerOn = false;
+            ChestManager.Instance.RemoveFromQueue(view);
+            view.GetComponent<Animator>().SetBool("Open", true);
         }
 
         private void UpdateTimer(float currentTime)
         {
             currentTime += 1;
 
-            float minutes = Mathf.FloorToInt(currentTime / 60);
+            float hours = Mathf.FloorToInt(currentTime / 3600);
+            float minutes = Mathf.FloorToInt((currentTime % 3600)/60);
             float seconds = Mathf.FloorToInt(currentTime % 60);
 
-            model.StandText = string.Format("{0:00} : {1:00}", minutes, seconds);
+            model.StandText = string.Format("{0:00} : {1:00} : {2:00}", hours, minutes, seconds);
         }
+        private void ActivateTimer()
+        {
+            if(model.StandText == "In Queue")
+            {
+                ChestManager.Instance.RemoveFromQueue(view);
+                model.StandText = "Open";
+                return;
+            }
 
-        private void ActivateTimer() => view.timerOn = true;
+            if(ChestManager.Instance.OpenChest(view) == Enums.Process.inQueue)
+            {
+                model.StandText = "In Queue";
+            }
+        }
 
         internal void ActivateStand()
         {

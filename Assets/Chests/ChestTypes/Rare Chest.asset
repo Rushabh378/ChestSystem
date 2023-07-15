@@ -17,3 +17,4 @@ MonoBehaviour:
   to: 500
   gemsRange: 20
   _to: 40
+  timerSeconds: 1800
