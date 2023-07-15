@@ -12,9 +12,9 @@ namespace ChestSystem.Chest
         private TextMeshProUGUI standText;
 
         public Animator StandAnimtor;
-        public float Timer;
         public Button btnOpen;
-        
+        public float Timer;
+
         public ChestModel(ChestType chestType, Availablity chestSlot, GameObject chestStand)
         {
             this.chestType = chestType;
@@ -28,6 +28,15 @@ namespace ChestSystem.Chest
 
         public Vector3 ChestPosition => chestSlot.transform.position;
         public string StandText { get => standText.text; set => standText.text = value; }
+
+        public int GetCoins()
+        {
+            return Random.Range(chestType.coinsRange, chestType.to + 1);
+        }
+        public int GetGems()
+        {
+            return Random.Range(chestType.gemsRange, chestType._to + 1);
+        }
 
         public void SetController(ChestController controller)
         {

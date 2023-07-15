@@ -13,6 +13,7 @@ namespace ChestSystem.UI
         public void Start()
         {
             ChestManager.PopUp += PopUpWindow;
+            ChestController.GetRewords += GiveRewords;
         }
 
         private void PopUpWindow(string window)
@@ -24,6 +25,11 @@ namespace ChestSystem.UI
                     panel.SetActive(true);
                 }
             }
+        }
+
+        public void GiveRewords(int coins, int Gems)
+        {
+
         }
     }
 }

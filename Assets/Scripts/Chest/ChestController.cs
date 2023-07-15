@@ -7,6 +7,8 @@ namespace ChestSystem.Chest
     {
         private ChestModel model;
         private ChestView view;
+
+        public static event Action<int, int> GetRewords;
         public ChestController(ChestModel model)
         {
             view = GameObject.Instantiate<ChestView>(model.chestType.chestPrefeb, model.ChestPosition, Quaternion.identity);
@@ -35,6 +37,8 @@ namespace ChestSystem.Chest
             view.timerOn = false;
             ChestManager.Instance.RemoveFromQueue(view);
             view.GetComponent<Animator>().SetBool("Open", true);
+
+            GetRewords?.Invoke(model.GetCoins(), model.GetGems());
         }
 
         private void UpdateTimer(float currentTime)
