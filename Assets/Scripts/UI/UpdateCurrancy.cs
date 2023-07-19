@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using ChestSystem.CurrancySpace;
 using static ChestSystem.Enums;
 
 namespace ChestSystem.UI
@@ -19,10 +20,10 @@ namespace ChestSystem.UI
             switch (currancyType)
             {
                 case ECurrancy.coin:
-                    currancy.text = Currancy.Currancy.Instance.coins.get();
+                    currancy.text = Currancy.Instance.coins.get();
                     break;
                 case ECurrancy.gem:
-                    currancy.text = Currancy.Currancy.Instance.gems.get();
+                    currancy.text = Currancy.Instance.gems.get();
                     break;
                 default:
                     Debug.Log("couldn't found currancy type");

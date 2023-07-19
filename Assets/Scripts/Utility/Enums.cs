@@ -16,7 +16,9 @@ namespace ChestSystem
 
         public enum Process
         {
-            done,
+            none,
+            complete,
+            processing,
             failled,
             inQueue,
             cancelled

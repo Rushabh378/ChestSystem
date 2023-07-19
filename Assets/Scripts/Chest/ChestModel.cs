@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using ChestSystem.UI;
 
 namespace ChestSystem.Chest
 {
@@ -8,17 +9,21 @@ namespace ChestSystem.Chest
     {
         private ChestController controller;
         public ChestType chestType;
-        private GameObject chestSlot;
         private TextMeshProUGUI standText;
+        private GameObject chestStand;
 
+        public Availablity chestSlot;
         public Animator StandAnimtor;
         public Button btnOpen;
         public float Timer;
+        public int SlotNumber;
 
-        public ChestModel(ChestType chestType, Availablity chestSlot, GameObject chestStand)
+        public ChestModel(ChestType chestType, Availablity chestSlot, int slotNumber)
         {
             this.chestType = chestType;
-            this.chestSlot = chestSlot.gameObject;
+            this.chestSlot = chestSlot;
+            this.chestStand = UIManager.Instance.chestStand[slotNumber];
+            this.SlotNumber = slotNumber;
 
             StandAnimtor = chestStand.GetComponent<Animator>();
             standText = chestStand.GetComponentInChildren<TextMeshProUGUI>();

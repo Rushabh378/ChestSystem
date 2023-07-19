@@ -2,11 +2,11 @@
 using System.Collections;
 using UnityEngine;
 
-namespace ChestSystem.Currancy
+namespace ChestSystem.CurrancySpace
 {
-    [Serializable]public class Gems : ICurrancy
+    public class Gems : MonoBehaviour, ICurrancy
     {
-        public int Amount;
+        public int Amount = 50;
 
         public void add(int value)
         {
@@ -16,6 +16,11 @@ namespace ChestSystem.Currancy
         public string get()
         {
             return Amount.ToString();
+        }
+
+        public void minus(int value)
+        {
+            Amount -= value;
         }
     }
 }
