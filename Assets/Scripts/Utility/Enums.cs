@@ -16,11 +16,10 @@ namespace ChestSystem
 
         public enum Process
         {
-            none,
-            complete,
-            processing,
-            failled,
-            inQueue,
+            idle,
+            opening,
+            queue,
+            opened,
             cancelled
         }
     }

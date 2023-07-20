@@ -45,12 +45,30 @@ namespace ChestSystem.UI
         public void OptionToOpen(int cost, ChestController controller)
         {
             GameObject optionWindow = GetWindow("Open Options");
-            TextMeshProUGUI amount = optionWindow.GetComponentInChildren<TextMeshProUGUI>();
+            TextMeshProUGUI textHolder = optionWindow.GetComponentInChildren<TextMeshProUGUI>();
             Button[] buttons = optionWindow.GetComponentsInChildren<Button>();
 
-            amount.text = cost.ToString();
+            textHolder.text = cost.ToString();
             buttons[0].onClick.AddListener(() => controller.OpenImmediatly(cost));
-            buttons[1].onClick.AddListener(controller.StartChestOpen);
+
+            textHolder = buttons[1].GetComponent<TextMeshProUGUI>();
+
+            if (ChestManager.Instance.ChestRunning && controller.chestProcess == Enums.Process.idle)
+            {
+                controller.AddChestToQueue();
+            }
+            else if (controller.chestProcess == Enums.Process.queue)
+            {
+                //textHolder.text = "cancel Queue";
+                buttons[1].onClick.AddListener(controller.CancelQueue);
+            }
+            else if (controller.chestProcess == Enums.Process.idle)
+            {
+                //textHolder.text = "Start Timer";
+                buttons[1].onClick.AddListener(controller.StartOpeningChest);
+            }
+            
+            
 
             optionWindow.SetActive(true);
         }

@@ -11,7 +11,7 @@ namespace ChestSystem.Chest
 
         private const int MAXSLOT = 4;
         private System.Random random = new System.Random();
-        private List<ChestView> runningChest = new();
+        private List<int> queueList = new();
 
         [SerializeField] private List<ChestType> chestTypes;
         [SerializeField] private Availablity[] chestSlot = new Availablity[MAXSLOT];
@@ -19,8 +19,8 @@ namespace ChestSystem.Chest
 
         private ChestModel[] model = new ChestModel[MAXSLOT];
         private ChestController[] controller = new ChestController[MAXSLOT];
-        private int current = 0;
 
+        public bool ChestRunning = false;
         public static event Action<string> PopUp;
 
         public void Update()
@@ -28,12 +28,13 @@ namespace ChestSystem.Chest
             if (Input.GetKeyDown(KeyCode.I))
             {
                 int slotIndex = GetAvailableSlot();
-                if (slotIndex != -1 && chestSlot[slotIndex].gameObject)
+                if (slotIndex != -1)
                 {
                     int index = random.Next(chestTypes.Count);
-                    model[slotIndex] = new ChestModel(chestTypes[index],chestSlot[slotIndex],slotIndex);
+                    model[slotIndex] = new ChestModel(chestTypes[index],chestSlot[slotIndex], slotIndex);
                     controller[slotIndex] = new ChestController(model[slotIndex]);
-                    current++;
+
+                    Debug.Log(chestTypes[index].name + " is created with slot = " + slotIndex);
                 }
                 else
                 {
@@ -51,69 +52,52 @@ namespace ChestSystem.Chest
             }
         }
 
-        public Process ActivateTimer(ChestView chest)
+        public bool QueueEmpty()
         {
-            if (runningChest.Count == 0)
+            return (queueList.Count == 0);
+        }
+
+        public Process AddToQueue(ChestModel model)
+        {
+            if (queueList.Count >= maxQueue)
             {
-                chest.timerOn = true;
-                runningChest.Add(chest);
-                Debug.Log("(AT1)running chest count : " + runningChest.Count);
-                return Process.processing;
+                PopUp.Invoke("Queue Full");
+                return Process.idle;
             }
-            else if(runningChest.Count <= maxQueue)
+            model.StandText = "InQueue";
+            queueList.Add(model.SlotNumber);
+            Debug.Log("added to queue :" + model.SlotNumber);
+            return Process.queue;
+        }
+
+        public Process RemoveFromQueue(ChestModel model)
+        {
+            foreach(int number in queueList)
             {
-                runningChest.Add(chest);
-                Debug.Log("(AT1)running chest count : " + runningChest.Count);
-                return Process.inQueue;
+                if(number == model.SlotNumber)
+                {
+                    queueList.Remove(number);
+                    model.StandText = "Open";
+                    Debug.Log("added to queue :" + model.SlotNumber);
+                    return Process.idle;
+                }
+            }
+            Debug.LogWarning("Trying to remove chest that isn't in queue this can effect your chest process.");
+            return Process.cancelled;
+        }
+
+        public void OpenChestInQueue()
+        {
+            if(QueueEmpty() == false)
+            { 
+                controller[queueList[0]].StartOpeningChest();
+                RemoveFromQueue(model[queueList[0]]);
             }
             else
             {
-                PopUp("Queue Full");
-                return Process.cancelled;
+                ChestRunning = false;
             }
         }
-
-        public Process RemoveFromQueue(ChestView chest)
-        {
-            Debug.Log("(RFQ)running chest count : " + runningChest.Count);
-            if(runningChest.Count == 0)
-            {
-                Debug.Log("queue list empty");
-                return Process.cancelled;
-            }
-            else if(runningChest[0].name == chest.name)
-            {
-                runningChest.Remove(chest);
-                Debug.Log("removing chest from front");
-
-                if(runningChest.Count != 0)
-                {
-                    runningChest[0].timerOn = true;
-                    Debug.Log("and starting timer of front chest.");
-                    return Process.processing;
-                }
-            }
-            else if (ChestAvailable(chest))
-            {
-                runningChest.Remove(chest);
-                Debug.Log("removing chest from the middle.");
-                return Process.complete;
-            }
-            Debug.Log("uncought process in removefromqueue");
-            return Process.failled;
-        }
-        public bool ChestAvailable(ChestView chestView)
-        {
-            foreach(ChestView chest in runningChest)
-            {
-                if(chest.name == chestView.name)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         private int GetAvailableSlot()
         {
             for(int i = 0; i < MAXSLOT; i++)

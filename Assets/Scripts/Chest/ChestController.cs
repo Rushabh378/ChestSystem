@@ -11,7 +11,9 @@ namespace ChestSystem.Chest
         private ChestModel model;
         private ChestView view;
 
-        private Enums.Process chestProcess = Enums.Process.none;
+        private float minute = 60f;
+
+        public Enums.Process chestProcess = Enums.Process.idle;
 
         public static event Action<int, int> GetRewords;
         public static event Action<string> PopUp;
@@ -30,12 +32,15 @@ namespace ChestSystem.Chest
 
         public void ChestOpeningProcess()
         {
-            UIManager.Instance.OptionToOpen(ChestCost(),this);
+            UIManager.Instance.OptionToOpen(ChestCost(), this);
         }
-
+        public void AddChestToQueue()
+        {
+            chestProcess = ChestManager.Instance.AddToQueue(model);
+        }
         public int ChestCost()
         {
-            return (int)Mathf.Ceil(model.Timer / 10f);
+            return (int)Mathf.Ceil(model.Timer / (minute * 10));
         }
 
         internal void SetTimer()
@@ -49,14 +54,22 @@ namespace ChestSystem.Chest
             }
         }
 
+        private void RemoveChest()
+        {
+            view.GetComponent<Animator>().SetBool("Open", true);
+
+            GetRewords?.Invoke(model.GetCoins(), model.GetGems());
+
+            ChestManager.Instance.RemoveChest(model.SlotNumber);
+            view.gameObject.SetActive(false);
+        }
+
         private void OpenChest()
         {
-            if (chestProcess == Enums.Process.inQueue)
-                return;
-
             view.timerOn = false;
-            ChestManager.Instance.RemoveFromQueue(view);
+            ChestManager.Instance.OpenChestInQueue();
             RemoveChest();
+
         }
 
         public void OpenImmediatly(int cost)
@@ -73,14 +86,9 @@ namespace ChestSystem.Chest
             
         }
 
-        private void RemoveChest()
+        internal void CancelQueue()
         {
-            view.GetComponent<Animator>().SetBool("Open", true);
-
-            GetRewords?.Invoke(model.GetCoins(), model.GetGems());
-
-            ChestManager.Instance.RemoveChest(model.SlotNumber);
-            GameObject.Destroy(view.gameObject);
+            chestProcess = ChestManager.Instance.RemoveFromQueue(model);
         }
 
         private void UpdateTimer(float currentTime)
@@ -93,25 +101,10 @@ namespace ChestSystem.Chest
 
             model.StandText = string.Format("{0:00} : {1:00} : {2:00}", hours, minutes, seconds);
         }
-        public void StartChestOpen()
+        public void StartOpeningChest()
         {
-            if (chestProcess == Enums.Process.processing)
-                return;
-
-            if(chestProcess == Enums.Process.inQueue)
-            {
-                ChestManager.Instance.RemoveFromQueue(view); //will remove and start open chest timer in queue.
-                model.StandText = "Open";
-                return;
-            }
-
-            chestProcess = ChestManager.Instance.ActivateTimer(view);
-
-            if(chestProcess == Enums.Process.inQueue)
-            {
-                model.StandText = "In Queue";
-            }
-
+            ChestManager.Instance.ChestRunning = view.timerOn = true;
+            chestProcess = Enums.Process.opening;
         }
 
         internal void ActivateStand()

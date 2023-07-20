@@ -3602,7 +3602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b904f722a097e4abb99ac3c331fc31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 300
+  Amount: 50
 --- !u!1 &843561646
 GameObject:
   m_ObjectHideFlags: 0
@@ -4792,7 +4792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30d5fba1090edca49ab9fb3f965ffc55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 500
+  Amount: 100
 --- !u!1 &1150008010
 GameObject:
   m_ObjectHideFlags: 0
@@ -5831,6 +5831,7 @@ MonoBehaviour:
   - {fileID: 843561648}
   - {fileID: 278037340}
   maxQueue: 2
+  ChestRunning: 0
 --- !u!4 &1471977116
 Transform:
   m_ObjectHideFlags: 0
