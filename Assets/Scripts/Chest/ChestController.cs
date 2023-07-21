@@ -60,6 +60,7 @@ namespace ChestSystem.Chest
 
             GetRewords?.Invoke(model.GetCoins(), model.GetGems());
 
+            ChestManager.Instance.OpenChestInQueue();
             ChestManager.Instance.RemoveChest(model.SlotNumber);
             view.gameObject.SetActive(false);
         }
@@ -67,13 +68,13 @@ namespace ChestSystem.Chest
         private void OpenChest()
         {
             view.timerOn = false;
-            ChestManager.Instance.OpenChestInQueue();
             RemoveChest();
 
         }
 
-        public void OpenImmediatly(int cost)
+        public void OpenImmediatly()
         {
+            int cost = ChestCost();
             if(Currancy.Instance.gems.Amount >= cost)
             {
                 Currancy.Instance.gems.minus(cost);

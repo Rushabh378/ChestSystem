@@ -59,7 +59,7 @@ namespace ChestSystem.Chest
 
         public Process AddToQueue(ChestModel model)
         {
-            if (queueList.Count >= maxQueue)
+            if (queueList.Count > maxQueue)
             {
                 PopUp.Invoke("Queue Full");
                 return Process.idle;
@@ -89,9 +89,10 @@ namespace ChestSystem.Chest
         public void OpenChestInQueue()
         {
             if(QueueEmpty() == false)
-            { 
+            {
                 controller[queueList[0]].StartOpeningChest();
                 RemoveFromQueue(model[queueList[0]]);
+                Debug.Log("value of index 0 after remove : " + queueList[0]);
             }
             else
             {

@@ -49,13 +49,13 @@ namespace ChestSystem.UI
             Button[] buttons = optionWindow.GetComponentsInChildren<Button>();
 
             textHolder.text = cost.ToString();
-            buttons[0].onClick.AddListener(() => controller.OpenImmediatly(cost));
+            buttons[0].onClick.AddListener(controller.OpenImmediatly);
 
             textHolder = buttons[1].GetComponent<TextMeshProUGUI>();
 
             if (ChestManager.Instance.ChestRunning && controller.chestProcess == Enums.Process.idle)
             {
-                controller.AddChestToQueue();
+                buttons[1].onClick.AddListener(controller.AddChestToQueue);
             }
             else if (controller.chestProcess == Enums.Process.queue)
             {
