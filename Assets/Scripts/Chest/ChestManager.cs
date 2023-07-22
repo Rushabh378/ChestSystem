@@ -92,8 +92,7 @@ namespace ChestSystem.Chest
             {
                 controller[queueList[0]].StartOpeningChest();
                 RemoveFromQueue(model[queueList[0]]);
-                Debug.Log("value of index 0 after remove : " + queueList[0]);
-            }
+            } 
             else
             {
                 ChestRunning = false;

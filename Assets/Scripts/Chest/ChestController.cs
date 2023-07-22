@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using ChestSystem.UI;
 using ChestSystem.CurrancySpace;
+using TMPro;
 
 namespace ChestSystem.Chest
 {
@@ -32,7 +33,33 @@ namespace ChestSystem.Chest
 
         public void ChestOpeningProcess()
         {
-            UIManager.Instance.OptionToOpen(ChestCost(), this);
+            //UIManager.Instance.OptionToOpen(ChestCost(), this);
+            GameObject optionWindow = UIManager.Instance.GetWindow("Open Options");
+            TextMeshProUGUI[] textHolder = new TextMeshProUGUI[2];
+            textHolder[0] = optionWindow.GetComponentInChildren<TextMeshProUGUI>();
+            Button[] buttons = optionWindow.GetComponentsInChildren<Button>();
+
+            textHolder[0].text = ChestCost().ToString();
+            buttons[0].onClick.AddListener(OpenImmediatly);
+
+            textHolder[1] = buttons[1].GetComponent<TextMeshProUGUI>();
+
+            if (ChestManager.Instance.ChestRunning && chestProcess == Enums.Process.idle)
+            {
+                buttons[1].onClick.AddListener(AddChestToQueue);
+            }
+            else if (chestProcess == Enums.Process.queue)
+            {
+                //textHolder[1].text = "cancel Queue";
+                buttons[1].onClick.AddListener(CancelQueue);
+            }
+            else if (chestProcess == Enums.Process.idle)
+            {
+                //textHolder[1].text = "Start Timer";
+                buttons[1].onClick.AddListener(StartOpeningChest);
+            }
+
+            optionWindow.SetActive(true);
         }
         public void AddChestToQueue()
         {
@@ -54,22 +81,25 @@ namespace ChestSystem.Chest
             }
         }
 
-        private void RemoveChest()
+        private void OpenChest()
         {
+            view.timerOn = false;
+
             view.GetComponent<Animator>().SetBool("Open", true);
 
             GetRewords?.Invoke(model.GetCoins(), model.GetGems());
 
-            ChestManager.Instance.OpenChestInQueue();
+            if (chestProcess == Enums.Process.opening)
+            {
+                ChestManager.Instance.OpenChestInQueue();
+            }
+            else
+            {
+                ChestManager.Instance.RemoveFromQueue(model);
+            }
+
             ChestManager.Instance.RemoveChest(model.SlotNumber);
             view.gameObject.SetActive(false);
-        }
-
-        private void OpenChest()
-        {
-            view.timerOn = false;
-            RemoveChest();
-
         }
 
         public void OpenImmediatly()
@@ -78,7 +108,7 @@ namespace ChestSystem.Chest
             if(Currancy.Instance.gems.Amount >= cost)
             {
                 Currancy.Instance.gems.minus(cost);
-                RemoveChest();
+                OpenChest();
             }
             else
             {
