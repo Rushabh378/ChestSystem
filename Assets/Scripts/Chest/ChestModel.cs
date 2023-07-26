@@ -12,26 +12,17 @@ namespace ChestSystem.Chest
         private TextMeshProUGUI standText;
         private GameObject chestStand;
 
-        public Availablity chestSlot;
-        public Animator StandAnimtor;
-        public Button btnOpen;
         public float Timer;
-        public int SlotNumber;
+        public int ChestId;
+        public Vector3 ChestPosition;
 
-        public ChestModel(ChestType chestType, Availablity chestSlot, int slotNumber)
+        public ChestModel(ChestType chestType, int chestId, Vector3 position)
         {
             this.chestType = chestType;
-            this.chestSlot = chestSlot;
-            this.chestStand = UIManager.Instance.chestStand[slotNumber];
-            this.SlotNumber = slotNumber;
-
-            StandAnimtor = chestStand.GetComponent<Animator>();
-            standText = chestStand.GetComponentInChildren<TextMeshProUGUI>();
-            btnOpen = chestStand.GetComponent<Button>();
+            this.ChestId = chestId;
+            this.ChestPosition = position;
             Timer = chestType.timerSeconds;
         }
-
-        public Vector3 ChestPosition => chestSlot.transform.position;
         public string StandText { get => standText.text; set => standText.text = value; }
 
         public int GetCoins()
