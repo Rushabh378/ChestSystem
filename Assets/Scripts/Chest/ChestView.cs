@@ -10,8 +10,6 @@ namespace ChestSystem.Chest
         public void Start()
         {
             timerOn = false;
-            controller.ActivateStand();
-
         }
         public void Update()
         {
@@ -23,11 +21,6 @@ namespace ChestSystem.Chest
         public void SetController(ChestController controller)
         {
             this.controller = controller;
-        }
-
-        public void OnDisable()
-        {
-            controller.DeactivatStand();
         }
     }
 }
