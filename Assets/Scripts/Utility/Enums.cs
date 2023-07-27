@@ -14,13 +14,12 @@ namespace ChestSystem
             gem
         }
 
-        public enum Process
+        public enum State
         {
             idle,
-            opening,
-            queue,
-            opened,
-            cancelled
+            running,
+            queued,
+            opened
         }
     }
 }

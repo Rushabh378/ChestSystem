@@ -14,14 +14,10 @@ namespace ChestSystem.Chest
         private List<int> queueList = new();
 
         [SerializeField] private List<ChestType> chestTypes;
-        [SerializeField] private int maxQueue = 2;
 
         private ChestSlot chestSlot;
-        private List<ChestModel> models;
-        private List<ChestController> controllers;
-
-        public bool ChestRunning = false;
-        public static event Action<string> PopUp;
+        private List<ChestModel> models = new();
+        private List<ChestController> controllers = new();
 
         public void Update()
         {
@@ -34,10 +30,10 @@ namespace ChestSystem.Chest
                     int index = random.Next(chestTypes.Count);
                     int id = random.Next(1000, 10000);
 
-                    ChestModel model = new ChestModel(chestTypes[index], id, chestSlot.ChestPosition.position);
+                    ChestModel model = new ChestModel(chestTypes[index], id, chestSlot);
                     ChestController controller = new ChestController(model);
 
-                    chestSlot.Chest = controller;
+                    chestSlot.Activate(controller);
 
                     models.Add(model);
                     controllers.Add(controller);
@@ -46,7 +42,7 @@ namespace ChestSystem.Chest
                 }
                 else
                 {
-                    PopUp("Slot Full");
+                    UIManager.Instance.ShowPopup("Slot Full", "Slot is full");
                 }
             }
         }

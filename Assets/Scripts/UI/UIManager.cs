@@ -1,33 +1,59 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using ChestSystem.Chest;
 using ChestSystem.CurrancySpace;
+using UnityEngine.Events;
 
 namespace ChestSystem.UI
 {
     public class UIManager : GenericSingleton<UIManager>
     {
+        [Serializable]
+        public struct Popup
+        {
+            public GameObject panel;
+            public TextMeshProUGUI header;
+            public TextMeshProUGUI discription;
+            public Button buttonOkay;
+            public Button buttonCancel;
+        }
+
+        [SerializeField] private Popup window;
         [SerializeField] private List<GameObject> panels;
-        public GameObject[] chestStand = new GameObject[4];
 
         public void Start()
         {
-            ChestManager.PopUp += PopUpWindow;
-            ChestController.PopUp += PopUpWindow;
             ChestController.GetRewords += GiveRewords;
         }
 
-        private void PopUpWindow(string window)
+        public void ShowPopup(string title, string Message, UnityAction okay = null, UnityAction cancel = null, string okayText = "Okay", string cancelText = "Cancel")
         {
-            foreach(GameObject panel in panels)
+            window.header.text = title;
+            window.discription.text = Message;
+
+            if (cancel != null)
             {
-                if(panel.name == window)
-                {
-                    panel.SetActive(true);
-                }
+                window.buttonOkay.onClick.AddListener(cancel);
             }
+
+            if (cancel != null)
+            {
+                window.buttonCancel.gameObject.SetActive(true);
+                window.buttonCancel.onClick.AddListener(cancel);
+            }
+            
+            if(okayText != "Okay" || cancelText != "Cancel")
+            {
+                TextMeshProUGUI Okay = window.buttonOkay.GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI Cancel = window.buttonCancel.GetComponent<TextMeshProUGUI>();
+
+                Okay.text = okayText;
+                Cancel.text = cancelText;
+            }
+            window.panel.SetActive(true);
         }
 
         public GameObject GetWindow(string window)

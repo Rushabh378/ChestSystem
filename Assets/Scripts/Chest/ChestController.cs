@@ -14,23 +14,39 @@ namespace ChestSystem.Chest
 
         private float minute = 60f;
 
-        public Enums.Process chestProcess = Enums.Process.idle;
+        public Enums.State ChestState;
 
         public static event Action<int, int> GetRewords;
-        public static event Action<string> PopUp;
 
         public ChestController(ChestModel model)
         {
-            view = GameObject.Instantiate<ChestView>(model.chestType.chestPrefeb, model.ChestPosition, Quaternion.identity);
+            view = GameObject.Instantiate<ChestView>(model.chestType.chestPrefeb, model.Position, Quaternion.identity);
 
             this.model = model;
 
             this.view.SetController(this);
             this.model.SetController(this);
+
+            ChestState = Enums.State.idle;
         }
-        public int ChestCost()
+        private int ChestCost()
         {
             return (int)Mathf.Ceil(model.Timer / (minute * 10));
+        }
+        public void OpeningOption()
+        {
+            string title = "Open Now?";
+            string message = "Do you want open chest for " + ChestCost() + " Gems";
+
+            UIManager.Instance.ShowPopup(title, message, OpenImmediatly, StartTimer);
+        }
+        private void StartTimer()
+        {
+            view.timerOn = true;
+        }
+        private void OpenImmediatly()
+        {
+            Debug.Log("Opening immediatly");
         }
         public void SetTimer()
         {
@@ -44,7 +60,10 @@ namespace ChestSystem.Chest
         }
         private void OpenChest()
         {
+            view.timerOn = false;
+            view.GetComponent<Animator>().SetBool("Open", true);
 
+            //giving rewords and removing chest.
         }
         private void UpdateTimer(float currentTime)
         {
@@ -54,7 +73,7 @@ namespace ChestSystem.Chest
             float minutes = Mathf.FloorToInt((currentTime % 3600)/60);
             float seconds = Mathf.FloorToInt(currentTime % 60);
 
-            model.StandText = string.Format("{0:00} : {1:00} : {2:00}", hours, minutes, seconds);
+            model.ButtonText = string.Format("{0:00} : {1:00} : {2:00}", hours, minutes, seconds);
         }
     }
 }

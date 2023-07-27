@@ -10,20 +10,21 @@ namespace ChestSystem.Chest
         private ChestController controller;
         public ChestType chestType;
         private TextMeshProUGUI standText;
-        private GameObject chestStand;
+        private ChestSlot chestSlot;
 
         public float Timer;
         public int ChestId;
-        public Vector3 ChestPosition;
 
-        public ChestModel(ChestType chestType, int chestId, Vector3 position)
+        public ChestModel(ChestType chestType, int chestId, ChestSlot chestSlot)
         {
             this.chestType = chestType;
             this.ChestId = chestId;
-            this.ChestPosition = position;
+            this.chestSlot = chestSlot;
+
             Timer = chestType.timerSeconds;
         }
-        public string StandText { get => standText.text; set => standText.text = value; }
+        public Vector3 Position => chestSlot.ChestPosition.position;
+        public string ButtonText { get => chestSlot.slotText.text; set => chestSlot.slotText.text = value; }
 
         public int GetCoins()
         {
