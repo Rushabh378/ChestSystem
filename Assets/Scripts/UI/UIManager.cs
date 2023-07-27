@@ -36,7 +36,7 @@ namespace ChestSystem.UI
 
             if (okay != null)
             {
-                window.buttonOkay.onClick.AddListener(cancel);
+                window.buttonOkay.onClick.AddListener(okay);
             }
 
             if (cancel != null)

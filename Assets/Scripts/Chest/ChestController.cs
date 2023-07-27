@@ -21,7 +21,7 @@ namespace ChestSystem.Chest
 
         public ChestController(ChestModel model)
         {
-            view = GameObject.Instantiate<ChestView>(model.chestType.chestPrefeb, model.Position, Quaternion.identity);
+            this.view = GameObject.Instantiate<ChestView>(model.chestType.chestPrefeb, model.Position, Quaternion.identity);
 
             this.model = model;
 
@@ -47,7 +47,16 @@ namespace ChestSystem.Chest
         }
         private void OpenImmediatly()
         {
-            Debug.Log("Opening immediatly");
+            int cost = ChestCost();
+            if(Currancy.Instance.gems.Amount >= cost)
+            {
+                Currancy.Instance.gems.Subtract(cost);
+                OpenChest();
+            }
+            else
+            {
+                UIManager.Instance.ShowPopup("Attention", "You dont have Enough Gems to open chest");
+            }
         }
         public void SetTimer()
         {
