@@ -34,7 +34,7 @@ namespace ChestSystem.UI
             window.header.text = title;
             window.discription.text = Message;
 
-            if (cancel != null)
+            if (okay != null)
             {
                 window.buttonOkay.onClick.AddListener(cancel);
             }
@@ -47,8 +47,8 @@ namespace ChestSystem.UI
             
             if(okayText != "Okay" || cancelText != "Cancel")
             {
-                TextMeshProUGUI Okay = window.buttonOkay.GetComponent<TextMeshProUGUI>();
-                TextMeshProUGUI Cancel = window.buttonCancel.GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI Okay = window.buttonOkay.GetComponentInChildren<TextMeshProUGUI>();
+                TextMeshProUGUI Cancel = window.buttonCancel.GetComponentInChildren<TextMeshProUGUI>();
 
                 Okay.text = okayText;
                 Cancel.text = cancelText;

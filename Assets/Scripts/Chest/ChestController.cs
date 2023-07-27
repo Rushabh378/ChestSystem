@@ -38,7 +38,7 @@ namespace ChestSystem.Chest
             string title = "Open Now?";
             string message = "Do you want open chest for " + ChestCost() + " Gems";
 
-            UIManager.Instance.ShowPopup(title, message, OpenImmediatly, StartTimer);
+            UIManager.Instance.ShowPopup(title, message, OpenImmediatly, StartTimer, "Open Now", "Start Timer");
         }
         private void StartTimer()
         {
