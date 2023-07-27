@@ -68,16 +68,19 @@ namespace ChestSystem.UI
             return null;
         }
 
-        public void GiveRewords(int coins, int Gems)
+        public void GiveRewords(int coins, int Gems, UnityAction RemoveChest)
         {
-            Currancy.Instance.coins.add(coins);
-            Currancy.Instance.gems.add(Gems);
+            Currancy.Instance.coins.Add(coins);
+            Currancy.Instance.gems.Add(Gems);
 
             GameObject RewordsWindow = GetWindow("Rewords");
+            Button Okay = RewordsWindow.GetComponentInChildren<Button>();
             TextMeshProUGUI[] texts = RewordsWindow.GetComponentsInChildren<TextMeshProUGUI>(true);
 
             texts[1].text = coins.ToString();
             texts[2].text = Gems.ToString();
+
+            Okay.onClick.AddListener(RemoveChest);
 
             RewordsWindow.SetActive(true);
 

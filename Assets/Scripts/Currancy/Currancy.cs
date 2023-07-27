@@ -1,29 +1,25 @@
-﻿using System.Collections;
-using UnityEngine;
-using ChestSystem.UI;
+﻿using UnityEngine;
 using TMPro;
 
 namespace ChestSystem.CurrancySpace
 {
     public class Currancy : GenericSingleton<Currancy>
     {
-        [HideInInspector]public Coins coins;
-        [HideInInspector]public Gems gems;
+        public Coins coins;
+        public Gems gems;
 
-        private TextMeshProUGUI[] updaters;
+        [SerializeField] private TextMeshProUGUI coinText;
+        [SerializeField] private TextMeshProUGUI gemsText;
 
         public void Start()
         {
-            coins = GetComponentInChildren<Coins>();
-            gems = GetComponentInChildren<Gems>();
-            updaters = GetComponentsInChildren<TextMeshProUGUI>();
             UpdateCurrancy();
         }
 
         public void UpdateCurrancy()
         {
-            updaters[0].text = coins.get();
-            updaters[1].text = gems.get();
+            coinText.text = coins.Amount.ToString();
+            gemsText.text = gems.Amount.ToString();
         }
     }
 }

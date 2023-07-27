@@ -46,5 +46,15 @@ namespace ChestSystem.Chest
                 }
             }
         }
+
+        public void RemoveChest(ChestModel model)
+        {
+            model.FreeSlot();
+
+            int index = models.FindIndex(M => M.ChestId == model.ChestId);
+
+            models.RemoveAt(index);
+            controllers.RemoveAt(index);
+        }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using ChestSystem.UI;
 using ChestSystem.CurrancySpace;
 using TMPro;
+using UnityEngine.Events;
 
 namespace ChestSystem.Chest
 {
@@ -16,7 +17,7 @@ namespace ChestSystem.Chest
 
         public Enums.State ChestState;
 
-        public static event Action<int, int> GetRewords;
+        public static event Action<int, int, UnityAction> GetRewords;
 
         public ChestController(ChestModel model)
         {
@@ -63,8 +64,14 @@ namespace ChestSystem.Chest
             view.timerOn = false;
             view.GetComponent<Animator>().SetBool("Open", true);
 
-            //giving rewords and removing chest.
+            GetRewords.Invoke(model.GetCoins(), model.GetGems(), RemoveChest);
         }
+        public void RemoveChest()
+        {
+            GameObject.Destroy(view.gameObject);
+            ChestManager.Instance.RemoveChest(model);
+        }
+
         private void UpdateTimer(float currentTime)
         {
             currentTime += 1;

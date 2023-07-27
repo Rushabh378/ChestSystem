@@ -21,13 +21,13 @@ namespace ChestSystem.UI
         {
             animator = GetComponent<Animator>();
             open = GetComponent<Button>();
-            slotText.text = "Open";
         }
 
         public void Activate(ChestController chest)
         {
             controller = chest;
             IsAvailable = false;
+            slotText.text = "Open";
             animator.SetBool("Activate", true);
             open.onClick.AddListener(controller.OpeningOption);
         }

@@ -1730,7 +1730,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 801186011}
-  - component: {fileID: 801186015}
   - component: {fileID: 801186014}
   - component: {fileID: 801186013}
   m_Layer: 5
@@ -1800,19 +1799,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 801186010}
   m_CullTransparentMesh: 1
---- !u!114 &801186015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 801186010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00b904f722a097e4abb99ac3c331fc31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Amount: 50
 --- !u!1 &843561646
 GameObject:
   m_ObjectHideFlags: 0
@@ -2705,7 +2691,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1120082126}
-  - component: {fileID: 1120082130}
   - component: {fileID: 1120082128}
   - component: {fileID: 1120082127}
   m_Layer: 5
@@ -2775,19 +2760,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1120082125}
   m_CullTransparentMesh: 1
---- !u!114 &1120082130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1120082125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30d5fba1090edca49ab9fb3f965ffc55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Amount: 100
 --- !u!1 &1150008010
 GameObject:
   m_ObjectHideFlags: 0
@@ -3677,8 +3649,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f8055dce983c4d741917f83b840c5748, type: 2}
   - {fileID: 11400000, guid: 473971bdb086e9f4d9241d4a7f256597, type: 2}
   - {fileID: 11400000, guid: ab85255f88115284db355e75c07a8f1f, type: 2}
-  maxQueue: 2
-  ChestRunning: 0
 --- !u!4 &1471977116
 Transform:
   m_ObjectHideFlags: 0
@@ -4777,8 +4747,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2924513140b7a334d9262127cef3dc7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins: {fileID: 0}
-  gems: {fileID: 0}
+  coins:
+    amount: 100
+  gems:
+    amount: 50
+  coinText: {fileID: 1150008012}
+  gemsText: {fileID: 1635564516}
 --- !u!224 &2078482282
 RectTransform:
   m_ObjectHideFlags: 0

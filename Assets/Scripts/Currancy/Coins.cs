@@ -1,27 +1,23 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 
 namespace ChestSystem.CurrancySpace
 {
     [Serializable]
-    public class Coins : MonoBehaviour, ICurrancy
+    public class Coins : ICurrancy
     {
-        public int Amount = 100;
+        [SerializeField] private int amount = 100;
 
-        public void add(int value)
+        public int Amount => amount;
+
+        public void Add(int value)
         {
-            Amount += value;
+            amount += value;
         }
 
-        public string get()
+        public void Subtract(int value)
         {
-            return Amount.ToString();
-        }
-
-        public void minus(int value)
-        {
-            Amount -= value;
+            amount -= value;
         }
     }
 }
