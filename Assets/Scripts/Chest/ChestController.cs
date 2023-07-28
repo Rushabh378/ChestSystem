@@ -39,9 +39,8 @@ namespace ChestSystem.Chest
 
             UIManager.Instance.ShowPopup(title, message, OpenImmediatly, StartTimer, "Open Now", "Start Timer");
         }
-        private void StartTimer()
+        public void StartTimer()
         {
-            //view.timerOn = true;
             SlotManager.Instance.StartTimer(view, model.chestSlot);
         }
         private void OpenImmediatly()
@@ -64,6 +63,7 @@ namespace ChestSystem.Chest
 
             if (model.Timer <= 0)
             {
+                SlotManager.Instance.StartNextChestInQueue();
                 OpenChest();
             }
         }

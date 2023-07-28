@@ -28,6 +28,8 @@ namespace ChestSystem.UI
         public bool IsAvailable() => (State == Enums.States.empty);
         public bool IsInQueue() => (State == Enums.States.inQueue);
 
+        public ChestController GetController => controller;
+
         public void Activate(ChestController chest)
         {
             controller = chest;
@@ -52,7 +54,7 @@ namespace ChestSystem.UI
                 State = Enums.States.equiped;
                 SlotText.text = "Open";
             }
-            if(State == Enums.States.equiped)
+            else
             {
                 State = Enums.States.inQueue;
                 SlotText.text = "InQueue";

@@ -27,10 +27,10 @@ namespace ChestSystem.UI
         {
             if (IsRunningChest(view))
             {
+                view.timerOn = true;
                 return;
             }
-
-            if(runningChest == null)
+            else if(runningChest == null)
             {
                 view.timerOn = true;
                 runningChest = view;
@@ -48,6 +48,23 @@ namespace ChestSystem.UI
                 return (runningChest == chest);
             }
             return false;
+        }
+
+        public void StartNextChestInQueue()
+        {
+            foreach(ChestSlot chestSlot in chestSlots)
+            {
+                if (chestSlot.IsInQueue())
+                {
+                    ChestController chest = chestSlot.GetController;
+                    chest.StartTimer();
+                    return;
+                }
+                else
+                {
+                    runningChest = null;
+                }
+            }
         }
     }
 }
