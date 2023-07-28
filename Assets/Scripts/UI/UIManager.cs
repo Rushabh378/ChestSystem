@@ -36,6 +36,7 @@ namespace ChestSystem.UI
 
             RemoveListnersOf(window.buttonOkay);
             RemoveListnersOf(window.buttonCancel);
+            window.buttonCancel.gameObject.SetActive(false);
 
             if (okay != null)
             {
