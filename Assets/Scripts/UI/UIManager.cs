@@ -29,10 +29,13 @@ namespace ChestSystem.UI
             ChestController.GetRewords += GiveRewords;
         }
 
-        public void ShowPopup(string title, string Message, UnityAction okay = null, UnityAction cancel = null, string okayText = "Okay", string cancelText = "Cancel")
+        public void ShowPopup(string header, string Message, UnityAction okay = null, UnityAction cancel = null, string okayText = "Okay", string cancelText = "Cancel")
         {
-            window.header.text = title;
+            window.header.text = header;
             window.discription.text = Message;
+
+            RemoveListnersOf(window.buttonOkay);
+            RemoveListnersOf(window.buttonCancel);
 
             if (okay != null)
             {
@@ -45,17 +48,19 @@ namespace ChestSystem.UI
                 window.buttonCancel.onClick.AddListener(cancel);
             }
             
-            if(okayText != "Okay" || cancelText != "Cancel")
-            {
-                TextMeshProUGUI Okay = window.buttonOkay.GetComponentInChildren<TextMeshProUGUI>();
-                TextMeshProUGUI Cancel = window.buttonCancel.GetComponentInChildren<TextMeshProUGUI>();
+            TextMeshProUGUI Okay = window.buttonOkay.GetComponentInChildren<TextMeshProUGUI>();
+            TextMeshProUGUI Cancel = window.buttonCancel.GetComponentInChildren<TextMeshProUGUI>();
 
-                Okay.text = okayText;
-                Cancel.text = cancelText;
-            }
+            Okay.text = okayText;
+            Cancel.text = cancelText;
+            
             window.panel.SetActive(true);
         }
 
+        private void RemoveListnersOf(Button button)
+        {
+            button.onClick.RemoveAllListeners();
+        }
         public GameObject GetWindow(string window)
         {
             foreach(GameObject panel in panels)
@@ -80,6 +85,7 @@ namespace ChestSystem.UI
             texts[1].text = coins.ToString();
             texts[2].text = Gems.ToString();
 
+            RemoveListnersOf(Okay);
             Okay.onClick.AddListener(RemoveChest);
 
             RewordsWindow.SetActive(true);

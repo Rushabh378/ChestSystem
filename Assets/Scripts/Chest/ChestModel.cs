@@ -8,10 +8,10 @@ namespace ChestSystem.Chest
     public class ChestModel
     {
         private ChestController controller;
-        public ChestType chestType;
+        private ChestType chestType;
         private TextMeshProUGUI standText;
-        private ChestSlot chestSlot;
 
+        public ChestSlot chestSlot;
         public float Timer;
         public int ChestId;
 
@@ -24,7 +24,9 @@ namespace ChestSystem.Chest
             Timer = chestType.timerSeconds;
         }
         public Vector3 Position => chestSlot.ChestPosition.position;
-        public string ButtonText { get => chestSlot.slotText.text; set => chestSlot.slotText.text = value; }
+        public string ButtonText { get => chestSlot.SlotText.text; set => chestSlot.SlotText.text = value; }
+
+        public ChestView Chest => chestType.chestPrefeb;
 
         public int GetCoins()
         {

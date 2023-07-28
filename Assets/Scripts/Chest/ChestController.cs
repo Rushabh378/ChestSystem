@@ -15,20 +15,18 @@ namespace ChestSystem.Chest
 
         private float minute = 60f;
 
-        public Enums.State ChestState;
+        public Enums.States ChestState;
 
         public static event Action<int, int, UnityAction> GetRewords;
 
         public ChestController(ChestModel model)
         {
-            this.view = GameObject.Instantiate<ChestView>(model.chestType.chestPrefeb, model.Position, Quaternion.identity);
+            this.view = GameObject.Instantiate<ChestView>(model.Chest, model.Position, Quaternion.identity);
 
             this.model = model;
 
             this.view.SetController(this);
             this.model.SetController(this);
-
-            ChestState = Enums.State.idle;
         }
         private int ChestCost()
         {
@@ -43,7 +41,8 @@ namespace ChestSystem.Chest
         }
         private void StartTimer()
         {
-            view.timerOn = true;
+            //view.timerOn = true;
+            SlotManager.Instance.StartTimer(view, model.chestSlot);
         }
         private void OpenImmediatly()
         {
