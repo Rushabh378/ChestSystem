@@ -45,19 +45,26 @@ namespace ChestSystem.UI
             animator.SetBool("Activate", false);
             open.onClick.RemoveListener(controller.OpeningOption);
             controller = null;
+            SlotManager.Instance.RemoveRuningChest();
         }
 
         public void ToggleQueue()
         {
             if(State == Enums.States.inQueue)
             {
-                State = Enums.States.equiped;
-                SlotText.text = "Open";
+                if (SlotManager.Instance.RemoveFromQueue())
+                {
+                    State = Enums.States.equiped;
+                    SlotText.text = "Open";
+                }
             }
             else
             {
-                State = Enums.States.inQueue;
-                SlotText.text = "InQueue";
+                if (SlotManager.Instance.AddInQueue())
+                {
+                    State = Enums.States.inQueue;
+                    SlotText.text = "InQueue";
+                }
             }
         }
     }

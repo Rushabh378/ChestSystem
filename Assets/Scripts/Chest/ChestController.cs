@@ -63,7 +63,6 @@ namespace ChestSystem.Chest
 
             if (model.Timer <= 0)
             {
-                SlotManager.Instance.StartNextChestInQueue();
                 OpenChest();
             }
         }
@@ -71,7 +70,6 @@ namespace ChestSystem.Chest
         {
             view.timerOn = false;
             view.GetComponent<Animator>().SetBool("Open", true);
-
             GetRewords.Invoke(model.GetCoins(), model.GetGems(), RemoveChest);
         }
         public void RemoveChest()

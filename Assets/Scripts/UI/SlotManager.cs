@@ -7,9 +7,38 @@ namespace ChestSystem.UI
 {
     public class SlotManager : GenericSingleton<SlotManager>
     {
+        [SerializeField] [Range(1, 4)] private int maxQueue = 2;
         [SerializeField] private List<ChestSlot> chestSlots;
 
         private ChestView runningChest = null;
+        private int queueChests = 0;
+
+        public bool AddInQueue()
+        {
+            if(queueChests < maxQueue)
+            {
+                queueChests++;
+                return true;
+            }
+            else
+            {
+                UIManager.Instance.ShowPopup("Queue Full", "Queue is full please wait for chest to open.");
+                return false;
+            }
+        }
+        public bool RemoveFromQueue()
+        {
+            if(queueChests > 0)
+            {
+                queueChests--;
+                return true;
+            }
+            else
+            {
+                Debug.LogWarning("you are trying to remove element from epmty queue.");
+                return false;
+            }
+        }
 
         public ChestSlot AvailableSlot()
         {
@@ -21,6 +50,11 @@ namespace ChestSystem.UI
                 }
             }
             return null;
+        }
+
+        public void RemoveRuningChest()
+        {
+            runningChest = null;
         }
 
         public void StartTimer(ChestView view, ChestSlot slot)
@@ -52,17 +86,17 @@ namespace ChestSystem.UI
 
         public void StartNextChestInQueue()
         {
-            foreach(ChestSlot chestSlot in chestSlots)
+            if (runningChest == null)
             {
-                if (chestSlot.IsInQueue())
+                foreach (ChestSlot chestSlot in chestSlots)
                 {
-                    ChestController chest = chestSlot.GetController;
-                    chest.StartTimer();
-                    return;
-                }
-                else
-                {
-                    runningChest = null;
+                    if (chestSlot.IsInQueue())
+                    {
+                        ChestController chest = chestSlot.GetController;
+                        RemoveFromQueue();
+                        chest.StartTimer();
+                        return;
+                    }
                 }
             }
         }
