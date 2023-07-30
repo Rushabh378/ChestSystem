@@ -50,6 +50,7 @@ namespace ChestSystem.Chest
         public void RemoveChest(ChestModel model)
         {
             model.FreeSlot();
+            SlotManager.Instance.StartNextChestInQueue();
 
             int index = models.FindIndex(M => M.ChestId == model.ChestId);
 
