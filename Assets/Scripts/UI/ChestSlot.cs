@@ -45,7 +45,7 @@ namespace ChestSystem.UI
             animator.SetBool("Activate", false);
             open.onClick.RemoveListener(controller.OpeningOption);
             controller = null;
-            SlotManager.Instance.RemoveRuningChest();
+            SlotManager.Instance.RemoveRunningChest();
         }
 
         public void ToggleQueue()

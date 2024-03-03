@@ -37,11 +37,18 @@ namespace ChestSystem.Chest
             string title = "Open Now?";
             string message = "Do you want open chest for " + ChestCost() + " Gems";
 
-            UIManager.Instance.ShowPopup(title, message, OpenImmediatly, StartTimer, "Open Now", "Start Timer");
+            if (SlotManager.Instance.IsChestRunning())
+            {
+                UIManager.Instance.ShowPopup(title, message, OpenImmediatly, model.chestSlot.ToggleQueue, "Open Now", "Enqueue/Dequeue");
+            }
+            else
+            {
+                UIManager.Instance.ShowPopup(title, message, OpenImmediatly, StartTimer, "Open Now", "Start Timer");
+            }
         }
         public void StartTimer()
         {
-            SlotManager.Instance.StartTimer(view, model.chestSlot);
+            SlotManager.Instance.StartTimer(view);
         }
         private void OpenImmediatly()
         {
@@ -70,6 +77,10 @@ namespace ChestSystem.Chest
         {
             view.timerOn = false;
             view.GetComponent<Animator>().SetBool("Open", true);
+            if (SlotManager.Instance.IsChestRunning(view))
+            {
+                SlotManager.Instance.RemoveRunningChest();
+            }
             GetRewords.Invoke(model.GetCoins(), model.GetGems(), RemoveChest);
         }
         public void RemoveChest()

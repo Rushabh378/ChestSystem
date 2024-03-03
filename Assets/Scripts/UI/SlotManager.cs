@@ -52,30 +52,23 @@ namespace ChestSystem.UI
             return null;
         }
 
-        public void RemoveRuningChest()
+        public void RemoveRunningChest()
         {
             runningChest = null;
         }
 
-        public void StartTimer(ChestView view, ChestSlot slot)
+        public void StartTimer(ChestView view)
         {
-            if (IsRunningChest(view))
-            {
-                view.timerOn = true;
-                return;
-            }
-            else if(runningChest == null)
+            if(runningChest == null)
             {
                 view.timerOn = true;
                 runningChest = view;
             }
-            else
-            {
-                slot.ToggleQueue();
-            }
         }
 
-        public bool IsRunningChest(ChestView chest)
+        public bool IsChestRunning() => (runningChest != null);
+
+        public bool IsChestRunning(ChestView chest)
         {
             if(runningChest != null)
             {
