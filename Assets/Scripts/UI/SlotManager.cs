@@ -13,7 +13,7 @@ namespace ChestSystem.UI
         private ChestView runningChest = null;
         private int queueChests = 0;
 
-        public bool AddInQueue()
+        public bool Enqueue()
         {
             if(queueChests < maxQueue)
             {
@@ -26,7 +26,7 @@ namespace ChestSystem.UI
                 return false;
             }
         }
-        public bool RemoveFromQueue()
+        public bool Dequeue()
         {
             if(queueChests > 0)
             {
@@ -86,7 +86,7 @@ namespace ChestSystem.UI
                     if (chestSlot.IsInQueue())
                     {
                         ChestController chest = chestSlot.GetController;
-                        RemoveFromQueue();
+                        Dequeue();
                         chest.StartTimer();
                         return;
                     }

@@ -39,20 +39,24 @@ namespace ChestSystem.UI
             open.onClick.AddListener(controller.OpeningOption);
         }
 
-        public void Deactivate()
+        public void Deactivate(ChestView chest)
         {
             State = Enums.States.empty;
             animator.SetBool("Activate", false);
             open.onClick.RemoveListener(controller.OpeningOption);
+            if (SlotManager.Instance.IsChestRunning(chest))
+            {
+                SlotManager.Instance.RemoveRunningChest();
+            }
             controller = null;
-            SlotManager.Instance.RemoveRunningChest();
+            
         }
 
         public void ToggleQueue()
         {
             if(State == Enums.States.inQueue)
             {
-                if (SlotManager.Instance.RemoveFromQueue())
+                if (SlotManager.Instance.Dequeue())
                 {
                     State = Enums.States.equiped;
                     SlotText.text = "Open";
@@ -60,10 +64,10 @@ namespace ChestSystem.UI
             }
             else
             {
-                if (SlotManager.Instance.AddInQueue())
+                if (SlotManager.Instance.Enqueue())
                 {
                     State = Enums.States.inQueue;
-                    SlotText.text = "InQueue";
+                    SlotText.text = "Enqueue";
                 }
             }
         }

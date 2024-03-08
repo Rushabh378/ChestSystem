@@ -41,10 +41,5 @@ namespace ChestSystem.Chest
         {
             this.controller = controller;
         }
-
-        public void FreeSlot()
-        {
-            chestSlot.Deactivate();
-        }
     }
 }
