@@ -6,18 +6,18 @@ namespace ChestSystem.CurrancySpace
     [Serializable]
     public class Gems : ICurrancy
     {
-        [SerializeField] private int amount = 50;
+        [SerializeField] private int _amount = 50;
 
-        public int Amount => amount;
+        public int Amount => _amount;
 
         public void Add(int value)
         {
-            amount += value;
+            _amount += value;
         }
 
         public void Subtract(int value)
         {
-            amount -= value;
+            _amount -= value;
         }
     }
 }

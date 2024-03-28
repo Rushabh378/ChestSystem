@@ -5,14 +5,14 @@ namespace ChestSystem
     public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
     {
 
-        private static T instance;
-        public static T Instance { get { return instance; } }
+        private static T _instance;
+        public static T Instance { get { return _instance; } }
 
         private void Awake()
         {
-            if (instance == null)
+            if (_instance == null)
             {
-                instance = this as T;
+                _instance = this as T;
                 DontDestroyOnLoad(gameObject);
             }
             else

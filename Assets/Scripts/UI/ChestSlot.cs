@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using ChestSystem.Chest;
 using TMPro;
@@ -9,9 +8,9 @@ namespace ChestSystem.UI
     public class ChestSlot : MonoBehaviour
     {
 
-        private ChestController controller;
-        private Animator animator;
-        private Button open;
+        private ChestController _controller;
+        private Animator _animator;
+        private Button _open;
 
         public Enums.States State;
         public Transform ChestPosition;
@@ -19,51 +18,55 @@ namespace ChestSystem.UI
 
         public void Start()
         {
-            animator = GetComponent<Animator>();
-            open = GetComponent<Button>();
+            _animator = GetComponent<Animator>();
+            _open = GetComponent<Button>();
 
-            State = Enums.States.empty;
+            State = Enums.States.Empty;
         }
 
-        public bool IsAvailable() => (State == Enums.States.empty);
-        public bool IsInQueue() => (State == Enums.States.inQueue);
+        public bool IsAvailable() => (State == Enums.States.Empty);
+        public bool IsInQueue() => (State == Enums.States.Enqueued);
 
-        public ChestController GetController => controller;
+        public ChestController GetController => _controller;
 
         public void Activate(ChestController chest)
         {
-            controller = chest;
+            _controller = chest;
             SlotText.text = "Open";
-            State = Enums.States.equiped;
-            animator.SetBool("Activate", true);
-            open.onClick.AddListener(controller.OpeningOption);
+            State = Enums.States.Equiped;
+            _animator.SetBool("Activate", true);
+            _open.onClick.AddListener(_controller.OpeningOption);
         }
 
-        public void Deactivate()
+        public void Deactivate(ChestView chest)
         {
-            State = Enums.States.empty;
-            animator.SetBool("Activate", false);
-            open.onClick.RemoveListener(controller.OpeningOption);
-            controller = null;
-            SlotManager.Instance.RemoveRuningChest();
+            State = Enums.States.Empty;
+            _animator.SetBool("Activate", false);
+            _open.onClick.RemoveListener(_controller.OpeningOption);
+            if (SlotManager.Instance.IsChestRunning(chest))
+            {
+                SlotManager.Instance.RemoveRunningChest();
+            }
+            _controller = null;
+            
         }
 
         public void ToggleQueue()
         {
-            if(State == Enums.States.inQueue)
+            if(State == Enums.States.Enqueued)
             {
-                if (SlotManager.Instance.RemoveFromQueue())
+                if (SlotManager.Instance.Dequeue())
                 {
-                    State = Enums.States.equiped;
+                    State = Enums.States.Equiped;
                     SlotText.text = "Open";
                 }
             }
             else
             {
-                if (SlotManager.Instance.AddInQueue())
+                if (SlotManager.Instance.Enqueue())
                 {
-                    State = Enums.States.inQueue;
-                    SlotText.text = "InQueue";
+                    State = Enums.States.Enqueued;
+                    SlotText.text = "Enqueue";
                 }
             }
         }

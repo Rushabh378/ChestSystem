@@ -10,35 +10,34 @@ namespace ChestSystem.Chest
     {
 
         private const int MAXSLOT = 4;
-        private System.Random random = new System.Random();
-        private List<int> queueList = new();
+        private System.Random _random = new System.Random();
 
-        [SerializeField] private List<ChestType> chestTypes;
+        [SerializeField] private List<ChestType> _chestTypes;
 
-        private ChestSlot chestSlot;
-        private List<ChestModel> models = new();
-        private List<ChestController> controllers = new();
+        private ChestSlot _chestSlot;
+        private List<ChestModel> _models = new();
+        private List<ChestController> _controllers = new();
 
         public void Update()
         {
             if (Input.GetKeyDown(KeyCode.I))
             {
-                chestSlot = SlotManager.Instance.AvailableSlot();
+                _chestSlot = SlotManager.Instance.AvailableSlot();
 
-                if (controllers.Count <= MAXSLOT && chestSlot != null)
+                if (_controllers.Count <= MAXSLOT && _chestSlot != null)
                 {
-                    int index = random.Next(chestTypes.Count);
-                    int id = random.Next(1000, 10000);
+                    int index = _random.Next(_chestTypes.Count);
+                    int id = _random.Next(1000, 10000);
 
-                    ChestModel model = new ChestModel(chestTypes[index], id, chestSlot);
+                    ChestModel model = new ChestModel(_chestTypes[index], id, _chestSlot);
                     ChestController controller = new ChestController(model);
 
-                    chestSlot.Activate(controller);
+                    _chestSlot.Activate(controller);
 
-                    models.Add(model);
-                    controllers.Add(controller);
+                    _models.Add(model);
+                    _controllers.Add(controller);
 
-                    Debug.Log(chestTypes[index].name + " is created with ID = " + id);
+                    Debug.Log(_chestTypes[index].name + " is created with ID = " + id);
                 }
                 else
                 {
@@ -49,13 +48,12 @@ namespace ChestSystem.Chest
 
         public void RemoveChest(ChestModel model)
         {
-            model.FreeSlot();
+            model.ChestSlot.Deactivate(model.Chest);
             SlotManager.Instance.StartNextChestInQueue();
 
-            int index = models.FindIndex(M => M.ChestId == model.ChestId);
-
-            models.RemoveAt(index);
-            controllers.RemoveAt(index);
+            int index = _models.FindIndex(M => M.ChestId == model.ChestId);
+            _models.RemoveAt(index);
+            _controllers.RemoveAt(index);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace ChestSystem.Chest
 {
     public class ChestView : MonoBehaviour
     {
-        private ChestController controller;
+        private ChestController _controller;
         internal bool timerOn;
 
         public void Start()
@@ -15,12 +15,12 @@ namespace ChestSystem.Chest
         {
             if (timerOn)
             {
-                controller.SetTimer();
+                _controller.SetTimer();
             }
         }
         public void SetController(ChestController controller)
         {
-            this.controller = controller;
+            this._controller = controller;
         }
     }
 }

@@ -7,17 +7,17 @@ namespace ChestSystem.UI
 {
     public class SlotManager : GenericSingleton<SlotManager>
     {
-        [SerializeField] [Range(1, 4)] private int maxQueue = 2;
-        [SerializeField] private List<ChestSlot> chestSlots;
+        [SerializeField] [Range(1, 4)] private int _maxQueue = 2;
+        [SerializeField] private List<ChestSlot> _chestSlots;
 
-        private ChestView runningChest = null;
-        private int queueChests = 0;
+        private ChestView _runningChest = null;
+        private int _queueChests = 0;
 
-        public bool AddInQueue()
+        public bool Enqueue()
         {
-            if(queueChests < maxQueue)
+            if(_queueChests < _maxQueue)
             {
-                queueChests++;
+                _queueChests++;
                 return true;
             }
             else
@@ -26,23 +26,23 @@ namespace ChestSystem.UI
                 return false;
             }
         }
-        public bool RemoveFromQueue()
+        public bool Dequeue()
         {
-            if(queueChests > 0)
+            if(_queueChests > 0)
             {
-                queueChests--;
+                _queueChests--;
                 return true;
             }
             else
             {
-                Debug.LogWarning("you are trying to remove element from epmty queue.");
+                Debug.LogWarning("you are trying to remove element from empty queue.");
                 return false;
             }
         }
 
         public ChestSlot AvailableSlot()
         {
-            foreach(ChestSlot chestSlot in chestSlots)
+            foreach(ChestSlot chestSlot in _chestSlots)
             {
                 if (chestSlot.IsAvailable())
                 {
@@ -52,48 +52,41 @@ namespace ChestSystem.UI
             return null;
         }
 
-        public void RemoveRuningChest()
+        public void RemoveRunningChest()
         {
-            runningChest = null;
+            _runningChest = null;
         }
 
-        public void StartTimer(ChestView view, ChestSlot slot)
+        public void StartTimer(ChestView view)
         {
-            if (IsRunningChest(view))
+            if(_runningChest == null)
             {
                 view.timerOn = true;
-                return;
-            }
-            else if(runningChest == null)
-            {
-                view.timerOn = true;
-                runningChest = view;
-            }
-            else
-            {
-                slot.ToggleQueue();
+                _runningChest = view;
             }
         }
 
-        public bool IsRunningChest(ChestView chest)
+        public bool IsChestRunning() => (_runningChest != null);
+
+        public bool IsChestRunning(ChestView chest)
         {
-            if(runningChest != null)
+            if(_runningChest != null)
             {
-                return (runningChest == chest);
+                return (_runningChest == chest);
             }
             return false;
         }
 
         public void StartNextChestInQueue()
         {
-            if (runningChest == null)
+            if (_runningChest == null)
             {
-                foreach (ChestSlot chestSlot in chestSlots)
+                foreach (ChestSlot chestSlot in _chestSlots)
                 {
                     if (chestSlot.IsInQueue())
                     {
                         ChestController chest = chestSlot.GetController;
-                        RemoveFromQueue();
+                        Dequeue();
                         chest.StartTimer();
                         return;
                     }

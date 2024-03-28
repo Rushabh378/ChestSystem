@@ -14,15 +14,15 @@ namespace ChestSystem.UI
         [Serializable]
         public struct Popup
         {
-            public GameObject panel;
-            public TextMeshProUGUI header;
-            public TextMeshProUGUI discription;
-            public Button buttonOkay;
-            public Button buttonCancel;
+            public GameObject Panel;
+            public TextMeshProUGUI Header;
+            public TextMeshProUGUI Discription;
+            public Button ButtonOkay;
+            public Button ButtonCancel;
         }
 
-        [SerializeField] private Popup window;
-        [SerializeField] private List<GameObject> panels;
+        [SerializeField] private Popup _window;
+        [SerializeField] private List<GameObject> _panels;
 
         public void Start()
         {
@@ -31,31 +31,31 @@ namespace ChestSystem.UI
 
         public void ShowPopup(string header, string Message, UnityAction okay = null, UnityAction cancel = null, string okayText = "Okay", string cancelText = "Cancel")
         {
-            window.header.text = header;
-            window.discription.text = Message;
+            _window.Header.text = header;
+            _window.Discription.text = Message;
 
-            RemoveListnersOf(window.buttonOkay);
-            RemoveListnersOf(window.buttonCancel);
-            window.buttonCancel.gameObject.SetActive(false);
+            RemoveListnersOf(_window.ButtonOkay);
+            RemoveListnersOf(_window.ButtonCancel);
+            _window.ButtonCancel.gameObject.SetActive(false);
 
             if (okay != null)
             {
-                window.buttonOkay.onClick.AddListener(okay);
+                _window.ButtonOkay.onClick.AddListener(okay);
             }
 
             if (cancel != null)
             {
-                window.buttonCancel.gameObject.SetActive(true);
-                window.buttonCancel.onClick.AddListener(cancel);
+                _window.ButtonCancel.gameObject.SetActive(true);
+                _window.ButtonCancel.onClick.AddListener(cancel);
             }
             
-            TextMeshProUGUI Okay = window.buttonOkay.GetComponentInChildren<TextMeshProUGUI>();
-            TextMeshProUGUI Cancel = window.buttonCancel.GetComponentInChildren<TextMeshProUGUI>();
+            TextMeshProUGUI Okay = _window.ButtonOkay.GetComponentInChildren<TextMeshProUGUI>();
+            TextMeshProUGUI Cancel = _window.ButtonCancel.GetComponentInChildren<TextMeshProUGUI>();
 
             Okay.text = okayText;
             Cancel.text = cancelText;
             
-            window.panel.SetActive(true);
+            _window.Panel.SetActive(true);
         }
 
         private void RemoveListnersOf(Button button)
@@ -64,7 +64,7 @@ namespace ChestSystem.UI
         }
         public GameObject GetWindow(string window)
         {
-            foreach(GameObject panel in panels)
+            foreach(GameObject panel in _panels)
             {
                 if(panel.name == window)
                 {
@@ -76,8 +76,8 @@ namespace ChestSystem.UI
 
         public void GiveRewords(int coins, int Gems, UnityAction RemoveChest)
         {
-            Currancy.Instance.coins.Add(coins);
-            Currancy.Instance.gems.Add(Gems);
+            Currancy.Instance.Coins.Add(coins);
+            Currancy.Instance.Gems.Add(Gems);
 
             GameObject RewordsWindow = GetWindow("Rewords");
             Button Okay = RewordsWindow.GetComponentInChildren<Button>();
