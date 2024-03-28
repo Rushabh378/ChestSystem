@@ -5,11 +5,11 @@ namespace ChestSystem.CurrancySpace
 {
     public class Currancy : GenericSingleton<Currancy>
     {
-        public Coins coins;
-        public Gems gems;
+        public Coins Coins;
+        public Gems Gems;
 
-        [SerializeField] private TextMeshProUGUI coinText;
-        [SerializeField] private TextMeshProUGUI gemsText;
+        [SerializeField] private TextMeshProUGUI _coinText;
+        [SerializeField] private TextMeshProUGUI _gemsText;
 
         public void Start()
         {
@@ -18,8 +18,8 @@ namespace ChestSystem.CurrancySpace
 
         public void UpdateCurrancy()
         {
-            coinText.text = coins.Amount.ToString();
-            gemsText.text = gems.Amount.ToString();
+            _coinText.text = Coins.Amount.ToString();
+            _gemsText.text = Gems.Amount.ToString();
         }
     }
 }

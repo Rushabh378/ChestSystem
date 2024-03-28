@@ -10,10 +10,10 @@ namespace ChestSystem.Chest
 {
     public class ChestController
     {
-        private ChestModel model;
-        private ChestView view;
+        private ChestModel _model;
+        private ChestView _view;
 
-        private float minute = 60f;
+        private float _minute = 60f;
 
         public Enums.States ChestState;
 
@@ -21,16 +21,16 @@ namespace ChestSystem.Chest
 
         public ChestController(ChestModel model)
         {
-            this.view = GameObject.Instantiate<ChestView>(model.Chest, model.Position, Quaternion.identity);
+            this._view = GameObject.Instantiate<ChestView>(model.Chest, model.Position, Quaternion.identity);
 
-            this.model = model;
+            this._model = model;
 
-            this.view.SetController(this);
-            this.model.SetController(this);
+            this._view.SetController(this);
+            this._model.SetController(this);
         }
         private int ChestCost()
         {
-            return (int)Mathf.Ceil(model.Timer / (minute * 10));
+            return (int)Mathf.Ceil(_model.Timer / (_minute * 10));  // lowering cost by minute
         }
         public void OpeningOption()
         {
@@ -39,7 +39,7 @@ namespace ChestSystem.Chest
 
             if (SlotManager.Instance.IsChestRunning())
             {
-                UIManager.Instance.ShowPopup(title, message, OpenImmediatly, model.chestSlot.ToggleQueue, "Open Now", "Enqueue/Dequeue");
+                UIManager.Instance.ShowPopup(title, message, OpenImmediatly, _model.ChestSlot.ToggleQueue, "Open Now", "Enqueue/Dequeue");
             }
             else
             {
@@ -48,14 +48,20 @@ namespace ChestSystem.Chest
         }
         public void StartTimer()
         {
-            SlotManager.Instance.StartTimer(view);
+            SlotManager.Instance.StartTimer(_view);
         }
         private void OpenImmediatly()
         {
             int cost = ChestCost();
-            if(Currancy.Instance.gems.Amount >= cost)
+            if(Currancy.Instance.Gems.Amount >= cost)
             {
-                Currancy.Instance.gems.Subtract(cost);
+                Currancy.Instance.Gems.Subtract(cost);
+
+                if (_model.ChestSlot.IsInQueue())
+                {
+                    SlotManager.Instance.Dequeue();
+                }
+
                 OpenChest();
             }
             else
@@ -65,28 +71,28 @@ namespace ChestSystem.Chest
         }
         public void SetTimer()
         {
-            model.Timer -= Time.deltaTime;
-            UpdateTimer(model.Timer);
+            _model.Timer -= Time.deltaTime;
+            UpdateTimer(_model.Timer);
 
-            if (model.Timer <= 0)
+            if (_model.Timer <= 0)
             {
                 OpenChest();
             }
         }
         private void OpenChest()
         {
-            view.timerOn = false;
-            view.GetComponent<Animator>().SetBool("Open", true);
-            if (SlotManager.Instance.IsChestRunning(view))
+            _view.timerOn = false;
+            _view.GetComponent<Animator>().SetBool("Open", true);
+            if (SlotManager.Instance.IsChestRunning(_view))
             {
                 SlotManager.Instance.RemoveRunningChest();
             }
-            GetRewords.Invoke(model.GetCoins(), model.GetGems(), RemoveChest);
+            GetRewords.Invoke(_model.GetCoins(), _model.GetGems(), RemoveChest);
         }
         public void RemoveChest()
         {
-            GameObject.Destroy(view.gameObject);
-            ChestManager.Instance.RemoveChest(model);
+            GameObject.Destroy(_view.gameObject);
+            ChestManager.Instance.RemoveChest(_model);
         }
 
         private void UpdateTimer(float currentTime)
@@ -97,7 +103,7 @@ namespace ChestSystem.Chest
             float minutes = Mathf.FloorToInt((currentTime % 3600)/60);
             float seconds = Mathf.FloorToInt(currentTime % 60);
 
-            model.ButtonText = string.Format("{0:00} : {1:00} : {2:00}", hours, minutes, seconds);
+            _model.ButtonText = string.Format("{0:00} : {1:00} : {2:00}", hours, minutes, seconds);
         }
     }
 }

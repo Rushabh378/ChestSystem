@@ -3316,8 +3316,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d15626b89704e854b9c6425b2bad80ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxQueue: 2
-  chestSlots:
+  _maxQueue: 2
+  _chestSlots:
   - {fileID: 245813140}
   - {fileID: 446926887}
   - {fileID: 314676924}
@@ -3698,10 +3698,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 220f6ba82802ff946b83d0d30c51d86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chestTypes:
+  _chestTypes:
   - {fileID: 11400000, guid: d7b562a3042405e40936784189a93fad, type: 2}
-  - {fileID: 11400000, guid: f8055dce983c4d741917f83b840c5748, type: 2}
   - {fileID: 11400000, guid: 473971bdb086e9f4d9241d4a7f256597, type: 2}
+  - {fileID: 11400000, guid: f8055dce983c4d741917f83b840c5748, type: 2}
   - {fileID: 11400000, guid: ab85255f88115284db355e75c07a8f1f, type: 2}
 --- !u!4 &1471977116
 Transform:
@@ -4446,13 +4446,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94166a19e8902004c8b9634a4020c705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  window:
-    panel: {fileID: 444560839}
-    header: {fileID: 2017480243}
-    discription: {fileID: 1989167485}
-    buttonOkay: {fileID: 1342965883}
-    buttonCancel: {fileID: 1054373719}
-  panels:
+  _window:
+    Panel: {fileID: 444560839}
+    Header: {fileID: 2017480243}
+    Discription: {fileID: 1989167485}
+    ButtonOkay: {fileID: 1342965883}
+    ButtonCancel: {fileID: 1054373719}
+  _panels:
   - {fileID: 1471080545}
 --- !u!1 &1989167483
 GameObject:
@@ -4817,12 +4817,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2924513140b7a334d9262127cef3dc7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins:
-    amount: 100
-  gems:
-    amount: 50
-  coinText: {fileID: 1150008012}
-  gemsText: {fileID: 1635564516}
+  Coins:
+    _amount: 100
+  Gems:
+    _amount: 50
+  _coinText: {fileID: 1150008012}
+  _gemsText: {fileID: 1635564516}
 --- !u!224 &2078482282
 RectTransform:
   m_ObjectHideFlags: 0

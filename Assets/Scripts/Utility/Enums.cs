@@ -9,16 +9,16 @@ namespace ChestSystem
         [Serializable]
         public enum ECurrancy
         {
-            none,
-            coin,
-            gem
+            None,
+            Coin,
+            Gem
         }
 
         public enum States
         {
-            empty,
-            equiped,
-            inQueue
+            Empty,
+            Equiped,
+            Enqueued
         }
     }
 }
